@@ -175,45 +175,45 @@ static const char dmenufont[]            = "JetBrains Mono:size=8:antialias=true
 
 static char c000000[]                    = "#000000"; // placeholder value
 
-static char normfgcolor[]                = "#bbbbbb";
-static char normbgcolor[]                = "#222222";
-static char normbordercolor[]            = "#444444";
-static char normfloatcolor[]             = "#db8fd9";
+static char normfgcolor[]                = "#ebdbb2";
+static char normbgcolor[]                = "#32302f";
+static char normbordercolor[]            = "#928374";
+static char normfloatcolor[]             = "#b16286";
 
-static char selfgcolor[]                 = "#eeeeee";
-static char selbgcolor[]                 = "#005577";
-static char selbordercolor[]             = "#005577";
-static char selfloatcolor[]              = "#005577";
+static char selfgcolor[]                 = "#ebdbb2";
+static char selbgcolor[]                 = "#458588";
+static char selbordercolor[]             = "#458588";
+static char selfloatcolor[]              = "#458588";
 
-static char titlenormfgcolor[]           = "#bbbbbb";
-static char titlenormbgcolor[]           = "#222222";
-static char titlenormbordercolor[]       = "#444444";
-static char titlenormfloatcolor[]        = "#db8fd9";
+static char titlenormfgcolor[]           = "#ebdbb2";
+static char titlenormbgcolor[]           = "#32302f";
+static char titlenormbordercolor[]       = "#928374";
+static char titlenormfloatcolor[]        = "#b16286";
 
-static char titleselfgcolor[]            = "#eeeeee";
-static char titleselbgcolor[]            = "#005577";
-static char titleselbordercolor[]        = "#005577";
-static char titleselfloatcolor[]         = "#005577";
+static char titleselfgcolor[]            = "#ebdbb2";
+static char titleselbgcolor[]            = "#458588";
+static char titleselbordercolor[]        = "#458588";
+static char titleselfloatcolor[]         = "#458588";
 
-static char tagsnormfgcolor[]            = "#bbbbbb";
-static char tagsnormbgcolor[]            = "#222222";
-static char tagsnormbordercolor[]        = "#444444";
-static char tagsnormfloatcolor[]         = "#db8fd9";
+static char tagsnormfgcolor[]            = "#ebdbb2";
+static char tagsnormbgcolor[]            = "#32302f";
+static char tagsnormbordercolor[]        = "#928374";
+static char tagsnormfloatcolor[]         = "#b16286";
 
-static char tagsselfgcolor[]             = "#eeeeee";
-static char tagsselbgcolor[]             = "#005577";
-static char tagsselbordercolor[]         = "#005577";
-static char tagsselfloatcolor[]          = "#005577";
+static char tagsselfgcolor[]             = "#ebdbb2";
+static char tagsselbgcolor[]             = "#458588";
+static char tagsselbordercolor[]         = "#458588";
+static char tagsselfloatcolor[]          = "#458588";
 
-static char hidnormfgcolor[]             = "#005577";
-static char hidselfgcolor[]              = "#227799";
-static char hidnormbgcolor[]             = "#222222";
-static char hidselbgcolor[]              = "#222222";
+static char hidnormfgcolor[]             = "#458588";
+static char hidselfgcolor[]              = "#83a598";
+static char hidnormbgcolor[]             = "#32302f";
+static char hidselbgcolor[]              = "#32302f";
 
-static char urgfgcolor[]                 = "#bbbbbb";
-static char urgbgcolor[]                 = "#222222";
-static char urgbordercolor[]             = "#ff0000";
-static char urgfloatcolor[]              = "#db8fd9";
+static char urgfgcolor[]                 = "#ebdbb2";
+static char urgbgcolor[]                 = "#32302f";
+static char urgbordercolor[]             = "#cc241a";
+static char urgfloatcolor[]              = "#b16286";
 
 #if BAR_LTSYMBOL_SCHEME_PATCH
 static char ltsymbolfgcolor[]            = "#222222";
@@ -477,8 +477,8 @@ static char tagicons[][NUMTAGS][MAX_TAGLEN] =
 static char *tagicons[][NUMTAGS] =
 #endif // NAMETAG_PATCH
 {
-	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
-	[ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I" },
+	[DEFAULT_TAGS]        = { "Α", "Β", "Γ", "Δ", "Ε", "Ζ", "Η", "Θ", "Ι" },
+	[ALTERNATIVE_TAGS]    = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
 	[ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>" },
 };
 
@@ -896,6 +896,8 @@ static const char *dmenucmd[] = {
 	NULL
 };
 static const char *termcmd[]  = { "st", NULL };
+static const char *scrotfscmd[] = { "screenshot.sh", "-f", NULL };
+static const char *scrotselcmd[] = { "screenshot.sh", "-s", NULL };
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -1030,6 +1032,8 @@ static const Key keys[] = {
 	#endif // KEYMODES_PATCH
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
+	{ 0,                            XK_Print,      spawn,                  {.v = scrotselcmd } },
+	{ MODKEY,                       XK_Print,      spawn,                  {.v = scrotfscmd } },
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
@@ -1251,7 +1255,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_t,          unfloatvisible,         {.v = &layouts[0]} },
 	#endif // UNFLOATVISIBLE_PATCH
 	#if TOGGLEFULLSCREEN_PATCH
-	{ MODKEY,                       XK_y,          togglefullscreen,       {0} },
+	{ MODKEY|ShiftMask,                       XK_f,          togglefullscreen,       {0} },
 	#endif // TOGGLEFULLSCREEN_PATCH
 	#if !FAKEFULLSCREEN_PATCH && FAKEFULLSCREEN_CLIENT_PATCH
 	{ MODKEY|ShiftMask,             XK_y,          togglefakefullscreen,   {0} },
